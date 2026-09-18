@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tese Studio — Studio hire in Harare</title>
+<title>Tese Studio — Podcast & recording studio hire in Harare</title>
 
 <!-- Fonts + Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="icon" type="image/x-icon" href="_favicon.ico">
-<link rel="icon" type="image/png" href="Tese-Icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="_icon1.png">
-<link rel="icon" type="image/png" sizes="192x192" href="web-app-manifest-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="web-app-manifest-512x512.png">
-<link rel="apple-touch-icon" href="_apple-icon.png">
-<link rel="icon" type="image/svg+xml" href="icon0.svg">
+<link rel="icon" type="image/x-icon" href="public/icons/_favicon.ico">
+<link rel="icon" type="image/png" href="public/images/Tese-Icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="public/icons/_icon1.png">
+<link rel="icon" type="image/png" sizes="192x192" href="public/manifest/web-app-manifest-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="public/manifest/web-app-manifest-512x512.png">
+<link rel="apple-touch-icon" href="public/icons/_apple-icon.png">
+<link rel="icon" type="image/svg+xml" href="public/icons/icon0.svg">
 <meta name="theme-color" content="#00C950">
 
 <style>
@@ -139,7 +139,8 @@ a.qb-field:hover{background:var(--teal-ghost)}
 .f-item{display:flex;gap:12px;color:var(--muted);font-size:13.5px;margin-bottom:13px;line-height:1.55}
 .f-item i{color:var(--teal);width:16px;margin-top:4px;font-size:13px}
 a.f-item:hover{color:var(--teal-text)}
-.f-link{display:inline-flex;align-items:center;gap:8px;color:var(--teal-text);font-size:13.5px;font-weight:600;margin-top:10px}
+.f-link{display:inline-flex;align-items:center;gap:8px;color:#FFFFFF;font-size:13.5px;font-weight:600;margin-top:10px;background:var(--teal);padding:10px 22px;border-radius:999px;transition:.25s;box-shadow:var(--shadow-teal)}
+.f-link:hover{background:var(--teal-dark);transform:translateY(-2px)}
 .f-link i{font-size:11px;transition:.2s}
 .f-link:hover i{transform:translateX(4px)}
 .socials{display:flex;gap:10px;margin-top:20px}
@@ -222,6 +223,8 @@ a.f-item:hover{color:var(--teal-text)}
   .f-item{justify-content:flex-start}
   .socials{justify-content:flex-start}
   .footer-bottom{justify-content:flex-start;text-align:left;padding:24px 0}
+  .fb-address{display:none}
+  .site-footer{padding:0 20px}
 }
 @media (max-width:460px){
   .form-row{grid-template-columns:1fr}
@@ -230,10 +233,49 @@ a.f-item:hover{color:var(--teal-text)}
   *,*::before,*::after{transition:none!important;animation:none!important}
   html{scroll-behavior:auto}
 }
+.star-border {
+  position: relative;
+  border-radius: 999px;
+  overflow: hidden;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.star-border::before,
+.star-border::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sb-color, #00C950), transparent 10%);
+  opacity: 0.7;
+  z-index: -1;
+}
+.star-border::before {
+  width: 300%;
+  height: 50%;
+  bottom: -12px;
+  right: -250%;
+  animation: star-movement-bottom linear infinite alternate;
+}
+.star-border::after {
+  width: 300%;
+  height: 50%;
+  top: -12px;
+  left: -250%;
+  animation: star-movement-top linear infinite alternate;
+}
+.star-border.circle {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  flex: none;
+}
 .star-border-container {
   display: inline-block;
   position: relative;
-  border-radius: 20px;
+  border-radius: 50%;
   overflow: hidden;
 }
 .border-gradient-bottom {
@@ -260,15 +302,20 @@ a.f-item:hover{color:var(--teal-text)}
 }
 .inner-content {
   position: relative;
-  border: 1px solid #222;
-  background: #000;
-  color: white;
+  border: 1px solid transparent;
+  background: var(--sb-bg, #000);
+  color: var(--sb-color, white);
   font-size: 16px;
   text-align: center;
-  padding: 16px 26px;
-  border-radius: 20px;
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   z-index: 1;
   pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 @keyframes star-movement-bottom {
   0% { transform: translate(0%, 0%); opacity: 1; }
@@ -367,7 +414,7 @@ a.f-item:hover{color:var(--teal-text)}
 <header class="site-header">
   <div class="container header-inner">
     <a class="logo" href="#top" aria-label="Tese Studio — home">
-      <img class="logo-img" src="Tese-Dark-logo.png" alt="Tese Studio">
+      <img class="logo-img" src="public/images/Tese-Dark-logo.png" alt="Tese Studio">
     </a>
     <div class="header-contact">
       <a class="hc-item" href="mailto:support@tese.africa"><i class="fa-regular fa-envelope"></i><span>support@tese.africa</span></a>
@@ -382,11 +429,11 @@ a.f-item:hover{color:var(--teal-text)}
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-media">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80" alt="Bright, plant-filled studio space at Tese Studio">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80" alt="Bright, plant-filled recording space at Tese Studio">
       </div>
       <div class="hero-copy">
-        <h1 id="heroTitle" class="split-parent">Create something new every session</h1>
-        <p>A private photo &amp; video studio in Groombridge, Harare. Pick a setup, choose a time, and just show up and shoot — lights, backdrops and support included.</p>
+        <h1 id="heroTitle" class="split-parent">Record. Stream. Create.</h1>
+        <p>A private podcast &amp; live-recording studio in Groombridge, Harare. Pick a setup, choose a time, and just show up and record — mics, cameras, lighting and on-site support included.</p>
       </div>
     </div>
 
@@ -405,7 +452,7 @@ a.f-item:hover{color:var(--teal-text)}
           <span class="qb-ic"><i class="fa-solid fa-phone"></i></span>
           <span><span class="qb-label">Call us</span><span class="qb-value">+263 7 71235777</span></span>
         </a>
-        <a class="qb-btn" href="#book">Book now <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="qb-btn star-border" href="#book">Book now <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -418,7 +465,7 @@ a.f-item:hover{color:var(--teal-text)}
       <div>
         <div class="section-head">
           <h2 id="studioSetupsTitle" class="split-parent">Studio setups</h2>
-          <p>Curated spaces for every kind of shoot — each one comes with lighting, backdrops and on-site support.</p>
+          <p>Curated spaces for every kind of recording — each one comes with mics, cameras, lighting and on-site support.</p>
         </div>
 
         <div id="accordionGallery"></div>
@@ -432,7 +479,7 @@ a.f-item:hover{color:var(--teal-text)}
 
           <form id="bookingForm" class="form-grid" novalidate>
             <div class="field">
-              <label for="setupSelect"><i class="fa-solid fa-camera-retro"></i>Selected setup</label>
+              <label for="setupSelect"><i class="fa-solid fa-microphone"></i>Selected setup</label>
               <select id="setupSelect"><!-- options injected --></select>
             </div>
             <p class="sync-note" style="margin-top:-6px"><i class="fa-solid fa-arrows-left-right"></i>Synced with the gallery</p>
@@ -475,7 +522,7 @@ a.f-item:hover{color:var(--teal-text)}
               </select>
             </div>
 
-            <button type="submit" class="btn-primary btn-block"><i class="fa-regular fa-paper-plane"></i>Request booking</button>
+            <button type="submit" class="btn-primary btn-block star-border"><i class="fa-regular fa-paper-plane"></i> Request booking</button>
             <p class="helper"><i class="fa-regular fa-circle-check"></i>Free to request — no payment now. We confirm by email or WhatsApp.</p>
           </form>
         </div>
@@ -492,7 +539,7 @@ a.f-item:hover{color:var(--teal-text)}
           <h2 id="exploreTitle" class="split-parent">Explore the studio</h2>
           <p>Take a quick look around the spaces and corners you can book. Click any photo to view it full screen.</p>
         </div>
-        <button class="btn-ghost" id="viewAllBtn">View All</button>
+        <button class="btn-ghost star-border" id="viewAllBtn">View All</button>
       </div>
       <div class="explore-grid collapsed" id="exploreGrid"><!-- cards injected from studioSetups --></div>
     </div>
@@ -503,14 +550,14 @@ a.f-item:hover{color:var(--teal-text)}
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <a class="logo" href="#top" aria-label="Tese Studio — home">
-        <img class="logo-img" src="Tese-Dark-logo.png" alt="Tese Studio">
+      <a class="logo" href="https://tese.africa" target="_blank" rel="noopener" aria-label="Tese Africa — home">
+        <img class="logo-img" src="public/images/Tese-Dark-logo.png" alt="Tese Africa">
       </a>
-      <p>A studio for hire in the heart of Harare — built for photographers, filmmakers and creators.</p>
+      <p>A studio for hire in the heart of Harare — built for podcasters, live-streamers, filmmakers and creators.</p>
       <div class="socials">
-        <a class="social" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Tese Studio on Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a class="social" href="https://wa.me/263771235777" target="_blank" rel="noopener" aria-label="Tese Studio on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        <a class="social" href="https://x.com" target="_blank" rel="noopener" aria-label="Tese Studio on X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a class="social" href="https://www.instagram.com/tese.africa/" target="_blank" rel="noopener" aria-label="Tese Africa on Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="social" href="https://www.facebook.com/p/Tese-Africa-61585199640079/" target="_blank" rel="noopener" aria-label="Tese Africa on Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a class="social" href="https://wa.me/263771235777" target="_blank" rel="noopener" aria-label="Tese Africa on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
       </div>
     </div>
     <div>
@@ -523,12 +570,12 @@ a.f-item:hover{color:var(--teal-text)}
       <h3 class="f-title">Opening hours</h3>
       <p class="f-item"><i class="fa-regular fa-clock"></i>Mon – Sat · 08:00 – 20:00</p>
       <p class="f-item"><i class="fa-regular fa-calendar"></i>Sun &amp; holidays · by appointment</p>
-      <a class="f-link" href="#book">Book a session <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="f-link star-border" href="#book">Book a session <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
   <div class="container footer-bottom">
-    <span>© <span id="year"></span> Tese Studio. All rights reserved.</span>
-    <span>13 Brentwood Avenue, Groombridge, Harare, Zimbabwe</span>
+    <a href="https://tese.africa" target="_blank" rel="noopener"><span>© <span id="year"></span> <strong>Tese Africa</strong>. All rights reserved.</span></a>
+    <span class="fb-address">13 Brentwood Avenue, Groombridge, Harare, Zimbabwe</span>
   </div>
 </footer>
 
@@ -538,7 +585,7 @@ a.f-item:hover{color:var(--teal-text)}
   <figure class="lb-figure">
     <span class="lb-img-wrap">
       <img id="lbImg" src="" alt="">
-      <button class="btn-primary lb-book-btn" id="lbBook"><i class="fa-solid fa-calendar-check"></i> Book a session</button>
+      <button class="btn-primary lb-book-btn star-border" id="lbBook"><i class="fa-solid fa-calendar-check"></i> Book a session</button>
     </span>
     <figcaption><strong id="lbName"></strong><span id="lbDesc"></span></figcaption>
   </figure>
@@ -556,7 +603,7 @@ a.f-item:hover{color:var(--teal-text)}
       <li><span class="k">Start time</span><span class="v" id="sumTime"></span></li>
       <li><span class="k">Duration</span><span class="v" id="sumDuration"></span></li>
     </ul>
-    <button class="btn-primary" id="closeSuccess" style="padding:13px 36px">Done</button>
+    <button class="btn-primary star-border" id="closeSuccess" style="padding:13px 36px">Done</button>
   </div>
 </div>
 
@@ -670,16 +717,20 @@ a.f-item:hover{color:var(--teal-text)}
   const sbRoot = createRoot(sbEl);
   sbRoot.render(
     React.createElement(StarBorder, {
-      as: 'div',
+      as: 'a',
+      href: 'https://wa.me/263771235777',
+      target: '_blank',
+      rel: 'noopener',
       color: '#25D366',
       speed: '4s',
       thickness: 2,
-      backgroundColor: '#25D366',
-      textColor: '#060010',
+      backgroundColor: '#FFFFFF',
+      textColor: '#25D366',
       borderColor: '#25D366'
     }, React.createElement('span', {
-      style: { fontSize: '14px', cursor: 'pointer', fontWeight: 600 }
-    }, React.createElement('i', { className: 'fa-brands fa-whatsapp', style: { marginRight: '6px' } }), 'Book on WhatsApp'))
+      style: { fontSize: '20px', cursor: 'pointer', fontWeight: 600, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '50%', padding: '0' }
+    }, React.createElement('i', { className: 'fa-brands fa-whatsapp' }))
+    )
   );
 
   window.__sbEl = sbEl;
@@ -893,28 +944,28 @@ const studioSetups = [
   {
     id: 'white-cyclorama',
     name: 'White cyclorama',
-    description: 'Clean infinite white backdrop, ideal for portraits & product.',
+    description: 'Clean infinite white backdrop, ideal for podcast interviews & product videos.',
     capacity: 'up to 6 people',
     image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'moody-portrait',
     name: 'Moody portrait corner',
-    description: 'Low-key lighting corner with textured backdrops for dramatic portraits.',
+    description: 'Low-key lighting corner with textured backdrops for dramatic talking-head videos.',
     capacity: 'up to 3 people',
     image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'creative-loft',
     name: 'Creative loft',
-    description: 'Sunlit open loft with props, furniture and colour pops for lifestyle shoots.',
+    description: 'Sunlit open loft with props, furniture and colour pops for lifestyle recordings.',
     capacity: 'up to 8 people',
     image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: 'black-box',
     name: 'Black box',
-    description: 'Fully blacked-out space for video, interviews and controlled lighting.',
+    description: 'Fully blacked-out space for live streams, interviews and controlled lighting.',
     capacity: 'up to 4 people',
     image: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1200&q=80'
   }
@@ -948,8 +999,8 @@ function build(){
 build();
 guardImg($('.hero-media img'));
 
-function hideSB(){ const el = window.__sbEl; if (el) el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
-function showSB(){ const el = window.__sbEl; if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; } }
+function hideSB(){ const el = $('#starBorderBtn'); if (el) el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
+  function showSB(){ const el = $('#starBorderBtn'); if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; } }
 
 /* ---------- fullscreen viewer ---------- */
 const lightbox = $('#lightbox'); let lastFocus = null; let currentLbSetup = null;
