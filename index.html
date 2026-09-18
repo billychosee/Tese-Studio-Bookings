@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tese Studio — Studio hire in Harare</title>
+
+<!-- Fonts + Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="_favicon.ico">
+<link rel="icon" type="image/png" href="Tese-Icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="_icon1.png">
+<link rel="icon" type="image/png" sizes="192x192" href="web-app-manifest-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="web-app-manifest-512x512.png">
+<link rel="apple-touch-icon" href="_apple-icon.png">
+<link rel="icon" type="image/svg+xml" href="icon0.svg">
+<meta name="theme-color" content="#00C950">
+
+<style>
+/* ============ Design tokens (matched to reference) ============ */
+:root{
+  --green:#00C950;
+  --teal:#00C950;
+  --teal-dark:#00A83F;
+  --teal-text:#008F36;
+  --teal-ghost:#F4F6F5;
+  --mint:#FFFFFF;
+  --bg-soft:#F4F6F5;
+  --ink:#1F2927;
+  --muted:#687572;
+  --line:#E4E8E6;
+  --r-lg:24px;
+  --r-md:18px;
+  --shadow-lg:0 30px 60px -22px rgba(31,41,39,.18);
+  --shadow-sm:0 10px 30px -12px rgba(31,41,39,.14);
+  --shadow-teal:0 16px 30px -10px rgba(0,201,80,.28);
+}
+
+/* ============ Base ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{font-family:'Poppins',sans-serif;color:var(--ink);background:#FFFFFF;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+ul{list-style:none}
+::selection{background:rgba(47,183,179,.25)}
+:focus-visible{outline:3px solid rgba(47,183,179,.55);outline-offset:2px;border-radius:10px}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
+.muted{color:var(--muted)}
+.section-head h2,.section-head .split-parent{font-size:clamp(24px,3vw,30px)}
+.section-head p{color:var(--muted);font-size:14px;margin-top:8px;max-width:52ch}
+
+/* ============ Header ============ */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:.25s}
+.site-header.scrolled{border-color:var(--line);box-shadow:0 8px 24px -18px rgba(21,58,57,.25)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px}
+.logo{display:inline-flex;align-items:center;gap:12px}
+.logo-img{width:112px;height:auto;max-height:42px;object-fit:contain}
+.header-contact{display:flex;align-items:center;background:#FFFFFF;border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:var(--shadow-sm)}
+.hc-item{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;font-size:12.5px;font-weight:500;transition:.2s}
+.hc-item i{color:var(--teal);font-size:13px}
+.hc-item:hover{background:var(--teal-ghost);color:var(--teal-text)}
+.hc-sep{width:1px;height:22px;background:var(--line)}
+
+/* ============ Hero (split + overlapping pill bar) ============ */
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;align-items:center}
+.hero-media{position:relative}
+.hero-media img{width:100%;height:480px;object-fit:cover}
+.hero-copy{padding:64px 7vw 64px 64px}
+.hero-copy h1{font-size:clamp(34px,4.3vw,54px);font-weight:600;color:#1F2927}
+.hero-copy p{margin-top:20px;color:var(--muted);font-size:15px;max-width:42ch}
+.hero-bar{position:relative;z-index:5;margin-top:-56px}
+.quickbar{background:#FFFFFF;border-radius:999px;box-shadow:var(--shadow-lg);display:flex;align-items:center;padding:10px;gap:4px}
+.qb-field{flex:1;display:flex;align-items:center;gap:13px;padding:10px 20px;border-radius:999px;transition:.2s}
+.qb-field + .qb-field{border-left:1px solid var(--line)}
+a.qb-field:hover{background:var(--teal-ghost)}
+.qb-ic{flex:none;width:40px;height:40px;border-radius:13px;background:var(--teal-ghost);color:var(--teal);display:grid;place-items:center;font-size:14px}
+.qb-label{display:block;font-size:13px;font-weight:600;line-height:1.3}
+.qb-value{display:block;font-size:12px;color:var(--muted);line-height:1.3;white-space:nowrap}
+.qb-btn{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:62px;padding:0 32px;border-radius:999px;background:var(--teal);color:#FFFFFF;font-size:15px;font-weight:600;box-shadow:var(--shadow-teal);transition:.25s}
+.qb-btn:hover{background:var(--teal-dark);transform:translateY(-2px)}
+
+/* ============ Main two-column layout ============ */
+.booking-section{padding:88px 0 20px}
+.two-col{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,420px);gap:48px;align-items:start}
+
+/* ---- Booking panel (sticky) ---- */
+.booking-aside{position:sticky;top:100px}
+.booking-card{background:#FFFFFF;border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow-lg)}
+.booking-card h2{font-size:24px}
+.booking-card .sub{color:var(--muted);font-size:13px;margin:6px 0 22px}
+.form-grid{display:grid;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{background:var(--bg-soft);border:1.5px solid transparent;border-radius:16px;padding:11px 15px 12px;transition:.2s}
+.field label{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;color:var(--ink)}
+.field label i{color:var(--teal);font-size:12px;width:14px;text-align:center}
+.field input,.field select{width:100%;border:0;background:transparent;font-family:inherit;font-size:14px;color:var(--ink);padding:5px 0 0;outline:none}
+.field input::placeholder{color:#AEB9B7}
+.field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:24px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%238C9795' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 4px center}
+.field:focus-within{border-color:var(--teal);background:#FFFFFF;box-shadow:0 0 0 4px rgba(47,183,179,.14)}
+.field.invalid{border-color:#E5484D;background:#FEF4F3}
+.error-msg{display:none;color:#E5484D;font-size:11px;margin-top:5px}
+.field.invalid .error-msg{display:block}
+.sync-note{font-size:11px;color:var(--muted);margin-top:7px}
+.sync-note i{color:var(--teal);margin-right:5px;font-size:10px}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--teal);color:#FFFFFF;font-size:15px;font-weight:600;border-radius:999px;transition:.25s;box-shadow:var(--shadow-teal)}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px)}
+.btn-block{width:100%;height:54px;margin-top:6px}
+.helper{margin-top:14px;text-align:center;font-size:12px;color:var(--muted)}
+.helper i{color:var(--teal);margin-right:6px}
+
+/* ============ Explore section ============ */
+.explore{background:var(--bg-soft);padding:84px 0;margin-top:88px}
+.explore .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:34px}
+.btn-ghost{background:#DFF2F1;color:var(--teal-text);font-size:12.5px;font-weight:600;padding:10px 22px;border-radius:999px;transition:.25s;white-space:nowrap}
+.btn-ghost:hover{background:var(--teal);color:#FFFFFF;transform:translateY(-2px)}
+.explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.explore-grid.collapsed .explore-card:nth-child(n+4){display:none}
+.explore-card{position:relative;border-radius:20px;overflow:hidden;cursor:zoom-in;aspect-ratio:4/3.1;background:var(--mint)}
+.explore-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.explore-card:hover img{transform:scale(1.06)}
+.explore-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,26,26,.28),transparent 45%);opacity:0;transition:.3s}
+.explore-card:hover::after{opacity:1}
+.ec-cap{position:absolute;left:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.94);font-size:12px;font-weight:600;padding:8px 14px;border-radius:999px}
+.ec-cap i{color:var(--teal);font-size:10px}
+
+/* ============ Footer ============ */
+.site-footer{border-top:1px solid var(--line);background:#FFFFFF}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;padding:58px 0 44px}
+.footer-grid p{color:var(--muted);font-size:13.5px;margin-top:14px;max-width:34ch}
+.f-title{font-size:14px;font-weight:600;margin-bottom:16px}
+.f-item{display:flex;gap:12px;color:var(--muted);font-size:13.5px;margin-bottom:13px;line-height:1.55}
+.f-item i{color:var(--teal);width:16px;margin-top:4px;font-size:13px}
+a.f-item:hover{color:var(--teal-text)}
+.f-link{display:inline-flex;align-items:center;gap:8px;color:var(--teal-text);font-size:13.5px;font-weight:600;margin-top:10px}
+.f-link i{font-size:11px;transition:.2s}
+.f-link:hover i{transform:translateX(4px)}
+.socials{display:flex;gap:10px;margin-top:20px}
+.social{width:40px;height:40px;border-radius:50%;background:var(--teal-ghost);color:var(--teal);display:grid;place-items:center;font-size:15px;transition:.25s}
+.social:hover{background:var(--teal);color:#FFFFFF;transform:translateY(-3px)}
+.footer-bottom{border-top:1px solid var(--line);padding:20px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+
+/* ============ Fullscreen viewer ============ */
+.lightbox{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(13,20,20,.74);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .25s}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lb-figure{max-width:960px;width:100%;transform:scale(.95) translateY(14px);transition:transform .3s}
+.lightbox.open .lb-figure{transform:none}
+.lb-figure img{width:100%;max-height:72vh;object-fit:cover;border-radius:20px;box-shadow:0 40px 90px -20px rgba(0,0,0,.6)}
+.lb-figure figcaption{margin-top:18px;text-align:center;color:#FFFFFF}
+.lb-figure strong{display:block;font-size:19px;font-weight:600}
+.lb-figure span{display:block;margin-top:4px;font-size:13px;color:rgba(255,255,255,.72)}
+.lb-img-wrap{position:relative;display:inline-block;max-width:100%}
+.lb-book-btn{position:absolute;bottom:18px;right:18px;z-index:5;padding:12px 26px;font-size:14px}
+.lb-close{position:fixed;top:22px;right:22px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#FFFFFF;font-size:16px;display:grid;place-items:center;transition:.25s}
+.lb-close:hover{background:#FFFFFF;color:var(--ink)}
+
+/* ============ Success modal ============ */
+.modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:rgba(13,20,20,.6);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s}
+.modal.open{opacity:1;pointer-events:auto}
+.modal-card{background:#FFFFFF;border-radius:var(--r-lg);padding:34px 30px;max-width:430px;width:100%;text-align:center;transform:translateY(14px) scale(.97);transition:transform .3s;box-shadow:var(--shadow-lg)}
+.modal.open .modal-card{transform:none}
+.check-ic{width:64px;height:64px;border-radius:50%;background:var(--teal-ghost);color:var(--teal);font-size:25px;display:grid;place-items:center;margin:0 auto 16px}
+.modal-card h3{font-size:21px}
+.modal-card>p{color:var(--muted);font-size:13.5px;margin-top:8px}
+.modal-card>p b{color:var(--ink);font-weight:600}
+.summary{margin:20px 0 22px;text-align:left;background:var(--bg-soft);border-radius:16px;padding:4px 18px}
+.summary li{display:flex;justify-content:space-between;gap:14px;padding:11px 0;font-size:13px;border-bottom:1px dashed var(--line)}
+.summary li:last-child{border:0}
+.summary .k{color:var(--muted)}
+.summary .v{font-weight:600;text-align:right}
+
+/* ============ Responsive ============ */
+@media (max-width:1024px){
+  .two-col{grid-template-columns:1fr;gap:56px}
+  .booking-aside{position:static}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-media img{height:300px}
+  .hero-copy{padding:32px 24px 4px}
+  .hero-bar{margin-top:26px}
+  .explore-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:767px){
+  .container{padding:0 24px}
+  .site-header{border-bottom-color:var(--line)}
+  .header-inner{height:68px;gap:12px}
+  .logo-img{width:96px}
+  .header-contact{padding:4px}
+  .hc-item{padding:8px 10px}
+  .hc-sep{display:none}
+  .hero-media img{height:240px}
+  .hero-copy{padding:32px 24px 4px}
+  .hero-bar{margin-top:24px}
+  .quickbar{flex-direction:column;align-items:stretch;padding:10px;border-radius:24px;gap:2px}
+  .qb-field{padding:12px 14px;gap:10px}
+  .qb-field + .qb-field{border-left:0;border-top:1px solid var(--line)}
+  .qb-ic{width:34px;height:34px}
+  .qb-btn{width:100%;height:52px;margin-top:8px;padding:0 18px;font-size:14px}
+  .header-contact .hc-item span{display:none}
+  .booking-section{padding:56px 0 48px}
+  .section-head{padding:0}
+  .section-head h2{font-size:24px}
+  .section-head p{font-size:13px}
+  #accordionGallery{width:100%;max-width:100%;margin-top:20px}
+  .two-col{grid-template-columns:1fr;gap:32px}
+  .booking-aside{position:static}
+  .booking-card{padding:20px}
+  .form-grid{gap:12px}
+  .field{padding:11px 14px 12px}
+  .explore-grid{grid-template-columns:1fr;gap:16px}
+  .explore{padding:56px 0 48px;margin-top:56px}
+  .explore .section-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:28px}
+  .footer-grid{grid-template-columns:1fr;gap:36px;padding:56px 0 48px;text-align:left;justify-items:start;align-items:start}
+  .footer-grid > div{width:100%}
+  .f-item{justify-content:flex-start}
+  .socials{justify-content:flex-start}
+  .footer-bottom{justify-content:flex-start;text-align:left;padding:24px 0}
+}
+@media (max-width:460px){
+  .form-row{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+.star-border-container {
+  display: inline-block;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.border-gradient-bottom {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  opacity: 0.7;
+  bottom: -12px;
+  right: -250%;
+  border-radius: 50%;
+  animation: star-movement-bottom linear infinite alternate;
+  z-index: 0;
+}
+.border-gradient-top {
+  position: absolute;
+  opacity: 0.7;
+  width: 300%;
+  height: 50%;
+  top: -12px;
+  left: -250%;
+  border-radius: 50%;
+  animation: star-movement-top linear infinite alternate;
+  z-index: 0;
+}
+.inner-content {
+  position: relative;
+  border: 1px solid #222;
+  background: #000;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  padding: 16px 26px;
+  border-radius: 20px;
+  z-index: 1;
+  pointer-events: auto;
+}
+@keyframes star-movement-bottom {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(-100%, 0%); opacity: 0; }
+}
+@keyframes star-movement-top {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(100%, 0%); opacity: 0; }
+}
+
+/* ============ AccordionGallery ============ */
+#accordionGallery { margin-top: 26px; }
+.accordion-gallery {
+  --ag-accent: #ffffff;
+  --ag-overlay: #060010;
+  --ag-text: #ffffff;
+  --ag-gap: 10px;
+  --ag-radius: 16px;
+  --ag-media-size: 320px;
+  display: flex;
+  flex-direction: row;
+  gap: var(--ag-gap);
+  width: 100%;
+  max-width: 100%;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+}
+.accordion-gallery--vertical { flex-direction: column; }
+.ag-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--ag-radius);
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  outline: none;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  background: #0a0713;
+  box-shadow: 0 10px 30px -18px rgba(0,0,0,.8);
+  will-change: flex-grow, transform;
+  -webkit-tap-highlight-color: transparent;
+}
+.ag-panel:focus-visible {
+  box-shadow: 0 0 0 2px var(--ag-accent), 0 10px 30px -18px rgba(0,0,0,.8);
+}
+.ag-panel__frame { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+.ag-panel__media {
+  --ag-gray: 1; --ag-dim: 0.35;
+  position: absolute; top: 50%; left: 50%;
+  width: var(--ag-media-size); height: 100%;
+  filter: grayscale(var(--ag-gray));
+  will-change: transform, filter;
+}
+.accordion-gallery--vertical .ag-panel__media { width: 100%; height: var(--ag-media-size); }
+.ag-panel__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; user-select: none; -webkit-user-drag: none;
+}
+.ag-panel__overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--ag-overlay) 78%, transparent) 100%),
+              color-mix(in srgb, var(--ag-overlay) calc(var(--ag-dim, 0.35) * 100%), transparent);
+}
+.ag-panel__label {
+  position: absolute; left: 20px; bottom: 20px; right: 20px;
+  display: flex; align-items: center; gap: 12px;
+  pointer-events: none; z-index: 2;
+}
+.ag-panel__bar {
+  flex: 0 0 auto; width: 3px; height: 26px; border-radius: 3px;
+  background: var(--ag-accent); opacity: 0;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ag-accent) 60%, transparent);
+}
+.ag-panel__text {
+  color: var(--ag-text); font-family: inherit; font-weight: 600;
+  font-size: clamp(1rem, 1.4vw, 1.4rem); letter-spacing: 0.01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0;
+  text-shadow: 0 2px 14px rgba(0,0,0,.55);
+}
+@media (max-width: 520px) {
+  .accordion-gallery { flex-direction: column; perspective: none; height: auto !important; }
+  .ag-panel { min-height: 84px; transform: none !important; }
+  .accordion-gallery .ag-panel__media { width: 100%; height: var(--ag-media-size); }
+}
+@media (prefers-reduced-motion: reduce) { .ag-panel, .ag-panel__media { will-change: auto; } }
+
+</style>
+</head>
+<body id="top">
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="#top" aria-label="Tese Studio — home">
+      <img class="logo-img" src="Tese-Dark-logo.png" alt="Tese Studio">
+    </a>
+    <div class="header-contact">
+      <a class="hc-item" href="mailto:support@tese.africa"><i class="fa-regular fa-envelope"></i><span>support@tese.africa</span></a>
+      <span class="hc-sep" aria-hidden="true"></span>
+      <a class="hc-item" href="tel:+263771235777"><i class="fa-solid fa-phone"></i><span>+263 7 71235777</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80" alt="Bright, plant-filled studio space at Tese Studio">
+      </div>
+      <div class="hero-copy">
+        <h1 id="heroTitle" class="split-parent">Create something new every session</h1>
+        <p>A private photo &amp; video studio in Groombridge, Harare. Pick a setup, choose a time, and just show up and shoot — lights, backdrops and support included.</p>
+      </div>
+    </div>
+
+    <!-- Overlapping quick-contact pill (mirrors the reference search bar) -->
+    <div class="hero-bar container">
+      <div class="quickbar">
+        <div class="qb-field">
+          <span class="qb-ic"><i class="fa-solid fa-location-dot"></i></span>
+          <span><span class="qb-label">Location</span><span class="qb-value">Groombridge, Harare</span></span>
+        </div>
+        <a class="qb-field" href="mailto:support@tese.africa">
+          <span class="qb-ic"><i class="fa-regular fa-envelope"></i></span>
+          <span><span class="qb-label">Email us</span><span class="qb-value">support@tese.africa</span></span>
+        </a>
+        <a class="qb-field" href="tel:+263771235777">
+          <span class="qb-ic"><i class="fa-solid fa-phone"></i></span>
+          <span><span class="qb-label">Call us</span><span class="qb-value">+263 7 71235777</span></span>
+        </a>
+        <a class="qb-btn" href="#book">Book now <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MAIN: gallery + booking ================= -->
+  <section class="booking-section container" id="book">
+    <div class="two-col">
+
+      <!-- LEFT — setups gallery -->
+      <div>
+        <div class="section-head">
+          <h2 id="studioSetupsTitle" class="split-parent">Studio setups</h2>
+          <p>Curated spaces for every kind of shoot — each one comes with lighting, backdrops and on-site support.</p>
+        </div>
+
+        <div id="accordionGallery"></div>
+      </div>
+
+      <!-- RIGHT — sticky booking panel -->
+      <aside class="booking-aside" aria-label="Booking form">
+        <div class="booking-card">
+          <h2>Book a session</h2>
+          <p class="sub">Tell us what you need — we'll confirm availability within a few hours.</p>
+
+          <form id="bookingForm" class="form-grid" novalidate>
+            <div class="field">
+              <label for="setupSelect"><i class="fa-solid fa-camera-retro"></i>Selected setup</label>
+              <select id="setupSelect"><!-- options injected --></select>
+            </div>
+            <p class="sync-note" style="margin-top:-6px"><i class="fa-solid fa-arrows-left-right"></i>Synced with the gallery</p>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="fullName"><i class="fa-regular fa-user"></i>Full name</label>
+                <input id="fullName" type="text" placeholder="e.g. Tendai Moyo" autocomplete="name">
+                <span class="error-msg">Please enter your full name</span>
+              </div>
+              <div class="field">
+                <label for="email"><i class="fa-regular fa-envelope"></i>Email</label>
+                <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+                <span class="error-msg">Enter a valid email address</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="date"><i class="fa-regular fa-calendar"></i>Date</label>
+                <input id="date" type="date">
+                <span class="error-msg">Pick a date (today or later)</span>
+              </div>
+              <div class="field">
+                <label for="time"><i class="fa-regular fa-clock"></i>Start time</label>
+                <input id="time" type="time">
+                <span class="error-msg">Pick a start time</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="duration"><i class="fa-solid fa-hourglass-half"></i>Duration</label>
+              <select id="duration">
+                <option>1 hour</option>
+                <option selected>2 hours</option>
+                <option>3 hours</option>
+                <option>4 hours</option>
+                <option>6 hours</option>
+                <option>Full day (8 hours)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-primary btn-block"><i class="fa-regular fa-paper-plane"></i>Request booking</button>
+            <p class="helper"><i class="fa-regular fa-circle-check"></i>Free to request — no payment now. We confirm by email or WhatsApp.</p>
+          </form>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ================= EXPLORE ================= -->
+  <section class="explore" id="explore">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 id="exploreTitle" class="split-parent">Explore the studio</h2>
+          <p>Take a quick look around the spaces and corners you can book. Click any photo to view it full screen.</p>
+        </div>
+        <button class="btn-ghost" id="viewAllBtn">View All</button>
+      </div>
+      <div class="explore-grid collapsed" id="exploreGrid"><!-- cards injected from studioSetups --></div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="logo" href="#top" aria-label="Tese Studio — home">
+        <img class="logo-img" src="Tese-Dark-logo.png" alt="Tese Studio">
+      </a>
+      <p>A studio for hire in the heart of Harare — built for photographers, filmmakers and creators.</p>
+      <div class="socials">
+        <a class="social" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Tese Studio on Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="social" href="https://wa.me/263771235777" target="_blank" rel="noopener" aria-label="Tese Studio on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a class="social" href="https://x.com" target="_blank" rel="noopener" aria-label="Tese Studio on X"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+    <div>
+      <h3 class="f-title">Contact</h3>
+      <p class="f-item"><i class="fa-solid fa-location-dot"></i>13 Brentwood Avenue, Groombridge, Harare, Zimbabwe</p>
+      <a class="f-item" href="mailto:support@tese.africa"><i class="fa-regular fa-envelope"></i>support@tese.africa</a>
+      <a class="f-item" href="tel:+263771235777"><i class="fa-solid fa-phone"></i>+263 7 71235777</a>
+    </div>
+    <div>
+      <h3 class="f-title">Opening hours</h3>
+      <p class="f-item"><i class="fa-regular fa-clock"></i>Mon – Sat · 08:00 – 20:00</p>
+      <p class="f-item"><i class="fa-regular fa-calendar"></i>Sun &amp; holidays · by appointment</p>
+      <a class="f-link" href="#book">Book a session <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Tese Studio. All rights reserved.</span>
+    <span>13 Brentwood Avenue, Groombridge, Harare, Zimbabwe</span>
+  </div>
+</footer>
+
+<!-- ================= FULLSCREEN VIEWER ================= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full screen setup preview" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Close full screen preview"><i class="fa-solid fa-xmark"></i></button>
+  <figure class="lb-figure">
+    <span class="lb-img-wrap">
+      <img id="lbImg" src="" alt="">
+      <button class="btn-primary lb-book-btn" id="lbBook"><i class="fa-solid fa-calendar-check"></i> Book a session</button>
+    </span>
+    <figcaption><strong id="lbName"></strong><span id="lbDesc"></span></figcaption>
+  </figure>
+</div>
+
+<!-- ================= SUCCESS CONFIRMATION ================= -->
+<div class="modal" id="successModal" role="dialog" aria-modal="true" aria-label="Booking request confirmation" aria-hidden="true">
+  <div class="modal-card">
+    <div class="check-ic"><i class="fa-solid fa-check"></i></div>
+    <h3>Booking request sent!</h3>
+    <p>Thanks, <b id="sumName"></b> — we've received your request and will confirm at <b id="sumEmail"></b> shortly.</p>
+    <ul class="summary">
+      <li><span class="k">Setup</span><span class="v" id="sumSetup"></span></li>
+      <li><span class="k">Date</span><span class="v" id="sumDate"></span></li>
+      <li><span class="k">Start time</span><span class="v" id="sumTime"></span></li>
+      <li><span class="k">Duration</span><span class="v" id="sumDuration"></span></li>
+    </ul>
+    <button class="btn-primary" id="closeSuccess" style="padding:13px 36px">Done</button>
+  </div>
+</div>
+
+<!-- ClickSpark integration (vanilla JS overlay) -->
+<script>
+  (function() {
+    var sparkColor = '#00C950';
+    var sparkSize = 10;
+    var sparkRadius = 15;
+    var sparkCount = 8;
+    var duration = 400;
+
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;inset:0;z-index:9999;width:100vw;height:100vh;pointer-events:none;display:block;user-select:none;';
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var sparks = [];
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w, h;
+
+    function resize() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function easeFunc(t) {
+      return t * (2 - t);
+    }
+
+    function draw(timestamp) {
+      ctx.clearRect(0, 0, w, h);
+      sparks = sparks.filter(function(spark) {
+        var elapsed = timestamp - spark.startTime;
+        if (elapsed >= duration) return false;
+        var progress = elapsed / duration;
+        var eased = easeFunc(progress);
+        var distance = eased * sparkRadius;
+        var lineLength = sparkSize * (1 - eased);
+        var x1 = spark.x + distance * Math.cos(spark.angle);
+        var y1 = spark.y + distance * Math.sin(spark.angle);
+        var x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
+        var y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
+        ctx.strokeStyle = sparkColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        return true;
+      });
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+
+    document.addEventListener('click', function(e) {
+      var x = e.clientX;
+      var y = e.clientY;
+      var now = performance.now();
+      for (var i = 0; i < sparkCount; i++) {
+        sparks.push({
+          x: x, y: y,
+          angle: (2 * Math.PI * i) / sparkCount,
+          startTime: now
+        });
+      }
+    }, true);
+  })();
+</script>
+
+<!-- StarBorder integration -->
+<script type="module">
+  import React from 'https://esm.sh/react@18.3.1';
+  import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
+
+  const StarBorder = ({
+    as: Component = 'button',
+    className = '',
+    color = 'white',
+    speed = '6s',
+    thickness = 1,
+    backgroundColor = '#000000',
+    textColor = '#ffffff',
+    borderColor = '#222222',
+    children,
+    ...rest
+  }) => {
+    const containerStyle = { padding: `${thickness}px 0`, ...(rest.style || {}) };
+    const componentProps = { ...rest, style: containerStyle, className: `star-border-container ${className}` };
+    return React.createElement(
+      Component,
+      componentProps,
+      React.createElement('div', { className: 'border-gradient-bottom', style: { background: `radial-gradient(circle, ${color}, transparent 10%)`, animationDuration: speed } }),
+      React.createElement('div', { className: 'border-gradient-top', style: { background: `radial-gradient(circle, ${color}, transparent 10%)`, animationDuration: speed } }),
+      React.createElement('div', { className: 'inner-content', style: { background: backgroundColor, color: textColor, borderColor } }, children)
+    );
+  };
+
+  const sbEl = document.createElement('div');
+  sbEl.id = 'starBorderBtn';
+  sbEl.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:99999;pointer-events:none;transition:opacity .3s';
+  document.body.appendChild(sbEl);
+
+  const sbRoot = createRoot(sbEl);
+  sbRoot.render(
+    React.createElement(StarBorder, {
+      as: 'div',
+      color: '#25D366',
+      speed: '4s',
+      thickness: 2,
+      backgroundColor: '#25D366',
+      textColor: '#060010',
+      borderColor: '#25D366'
+    }, React.createElement('span', {
+      style: { fontSize: '14px', cursor: 'pointer', fontWeight: 600 }
+    }, React.createElement('i', { className: 'fa-brands fa-whatsapp', style: { marginRight: '6px' } }), 'Book on WhatsApp'))
+  );
+
+  window.__sbEl = sbEl;
+  window.__sbRoot = sbRoot;
+</script>
+
+<!-- AccordionGallery integration -->
+<script type="module">
+  import React, { useRef, useEffect, useState, useCallback } from 'https://esm.sh/react@18.3.1';
+  import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
+  import { gsap } from 'https://esm.sh/gsap@3.12.5';
+
+  const h = React.createElement;
+
+  const DEFAULT_ITEMS = [
+    { image: 'https://picsum.photos/id/1015/900/1200', label: 'Canyon', link: '#' },
+    { image: 'https://picsum.photos/id/1018/900/1200', label: 'Ridgeline', link: '#' },
+    { image: 'https://picsum.photos/id/1039/900/1200', label: 'Falls', link: '#' },
+    { image: 'https://picsum.photos/id/1043/900/1200', label: 'Harbour', link: '#' },
+    { image: 'https://picsum.photos/id/1044/900/1200', label: 'Skyline', link: '#' }
+  ];
+
+  const AccordionGallery = ({
+    items = DEFAULT_ITEMS,
+    defaultIndex = 2,
+    accentColor = '#ffffff',
+    overlayColor = '#060010',
+    textColor = '#ffffff',
+    height = 460,
+    gap = 10,
+    radius = 16,
+    expandRatio = 0.52,
+    orientation = 'horizontal',
+    duration = 0.6,
+    ease = 'power3.out',
+    parallax = 0.5,
+    tilt = 8,
+    stagger = 0.06,
+    trigger = 'hover',
+    showLabels = true,
+    grayscale = true,
+    className = ''
+  }) => {
+    const rootRef = useRef(null);
+    const panelRefs = useRef([]);
+    const mediaRefs = useRef([]);
+    const barRefs = useRef([]);
+    const textRefs = useRef([]);
+    const tlRef = useRef(null);
+    const firstRunRef = useRef(true);
+    const mediaSizeRef = useRef(320);
+
+    const vertical = orientation === 'vertical';
+    const count = items.length;
+    const [active, setActive] = useState(Math.min(Math.max(defaultIndex, 0), count - 1));
+
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+
+    const applyLayout = useCallback((animate) => {
+      const panels = panelRefs.current;
+      if (!panels.length) return;
+      const r = Math.min(Math.max(expandRatio, 0.2), 0.9);
+      const grow = count > 1 ? (r * (count - 1)) / (1 - r) : 1;
+      const mediaSize = mediaSizeRef.current;
+      tlRef.current?.kill();
+      const dur = animate && !prefersReduced ? duration : 0;
+      const tl = gsap.timeline();
+      panels.forEach((panel, i) => {
+        if (!panel) return;
+        const isActive = i === active;
+        const media = mediaRefs.current[i];
+        const bar = barRefs.current[i];
+        const text = textRefs.current[i];
+        const rot = isActive ? 0 : i < active ? tilt : -tilt;
+        const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
+        tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, duration: dur, ease }, 0);
+        if (media) {
+          const drift = Math.max(-1.5, Math.min(1.5, active - i));
+          const shift = drift * parallax * mediaSize * 0.06;
+          const gray = grayscale ? (isActive ? 0 : 1) : 0;
+          tl.to(media, {
+            xPercent: -50, yPercent: -50,
+            x: vertical ? 0 : isActive ? 0 : shift,
+            y: vertical ? (isActive ? 0 : shift) : 0,
+            '--ag-gray': gray, '--ag-dim': isActive ? 0 : 0.35,
+            duration: dur, ease
+          }, 0);
+        }
+        if (showLabels && bar && text) {
+          if (isActive) {
+            tl.to([bar, text], { opacity: 1, x: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
+          } else {
+            tl.to([bar, text], { opacity: 0, x: -14, duration: dur * 0.6, ease }, 0);
+          }
+        }
+      });
+      tlRef.current = tl;
+    }, [active, count, expandRatio, duration, ease, vertical, tilt, parallax, grayscale, showLabels, stagger, prefersReduced]);
+
+    useEffect(() => {
+      const el = rootRef.current;
+      if (!el) return;
+      const measure = () => {
+        const rect = el.getBoundingClientRect();
+        const total = vertical ? rect.height : rect.width;
+        const usable = Math.max(total - gap * (count - 1), 120);
+        const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.22);
+        mediaSizeRef.current = size;
+        el.style.setProperty('--ag-media-size', `${size}px`);
+        applyLayout(!firstRunRef.current);
+      };
+      measure();
+      const ro = new ResizeObserver(measure);
+      ro.observe(el);
+      return () => ro.disconnect();
+    }, [applyLayout, gap, count, expandRatio, vertical]);
+
+    useEffect(() => {
+      applyLayout(!firstRunRef.current);
+      firstRunRef.current = false;
+    }, [applyLayout]);
+
+    useEffect(() => () => { tlRef.current?.kill(); }, []);
+
+    const handleEnter = (i) => { if (trigger === 'hover') setActive(i); };
+    const handleClick = (i, e) => { if (i !== active) { e.preventDefault(); setActive(i); } };
+    const handleKeyDown = (i, e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); setActive((i + 1) % count); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); setActive((i - 1 + count) % count); }
+    };
+
+    return h('div', {
+      ref: rootRef,
+      className: `accordion-gallery${vertical ? ' accordion-gallery--vertical' : ''}${className ? ` ${className}` : ''}`,
+      style: {
+        '--ag-accent': accentColor,
+        '--ag-overlay': overlayColor,
+        '--ag-text': textColor,
+        '--ag-gap': `${gap}px`,
+        '--ag-radius': `${radius}px`,
+        height: vertical ? `${Math.round(height * 1.6)}px` : `${height}px`
+      },
+      role: 'list',
+      'aria-label': 'Image accordion gallery'
+    }, items.map((item, i) => {
+      const isActive = i === active;
+      const Tag = item.link ? 'a' : 'div';
+      return h(Tag, {
+        key: i,
+        ref: el => (panelRefs.current[i] = el),
+        className: `ag-panel${isActive ? ' ag-panel--active' : ''}`,
+        style: { borderRadius: `${radius}px` },
+        href: item.link || undefined,
+        onClick: e => handleClick(i, e),
+        onMouseEnter: () => handleEnter(i),
+        onFocus: () => setActive(i),
+        onKeyDown: e => handleKeyDown(i, e),
+        role: 'listitem',
+        tabIndex: 0,
+        'aria-current': isActive ? 'true' : undefined,
+        'aria-label': item.label
+      },
+        h('span', { className: 'ag-panel__frame' },
+          h('span', { className: 'ag-panel__media', ref: el => (mediaRefs.current[i] = el) },
+            h('img', { src: item.image, alt: item.alt || item.label || '', draggable: 'false' })
+          ),
+          h('span', { className: 'ag-panel__overlay', 'aria-hidden': 'true' })
+        ),
+        showLabels ? h('span', { className: 'ag-panel__label', 'aria-hidden': 'true' },
+          h('span', { className: 'ag-panel__bar', ref: el => (barRefs.current[i] = el) }),
+          h('span', { className: 'ag-panel__text', ref: el => (textRefs.current[i] = el) }, item.label)
+        ) : null
+      );
+    }));
+  };
+
+  const galleryEl = document.getElementById('accordionGallery');
+  if (galleryEl && window.studioSetups) {
+    const items = window.studioSetups.map(s => ({ image: s.image, label: s.name, id: s.id }));
+    const root = createRoot(galleryEl);
+    root.render(
+      h(AccordionGallery, {
+        items,
+        defaultIndex: 2,
+        expandRatio: 0.52,
+        trigger: 'hover',
+        accentColor: '#00C950',
+        overlayColor: '#060010',
+        textColor: '#ffffff',
+        height: 460,
+        gap: 10,
+        radius: 16,
+        duration: 0.6,
+        ease: 'power3.out',
+        parallax: 0.5,
+        tilt: 8,
+        stagger: 0.06
+      })
+    );
+  }
+</script>
+
+
+
+<script>
+/* =========================================================
+   REUSABLE DATA — add an object here and a slide, a dot,
+   a dropdown option and an explore card appear automatically.
+   ========================================================= */
+const studioSetups = [
+  {
+    id: 'white-cyclorama',
+    name: 'White cyclorama',
+    description: 'Clean infinite white backdrop, ideal for portraits & product.',
+    capacity: 'up to 6 people',
+    image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    id: 'moody-portrait',
+    name: 'Moody portrait corner',
+    description: 'Low-key lighting corner with textured backdrops for dramatic portraits.',
+    capacity: 'up to 3 people',
+    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    id: 'creative-loft',
+    name: 'Creative loft',
+    description: 'Sunlit open loft with props, furniture and colour pops for lifestyle shoots.',
+    capacity: 'up to 8 people',
+    image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    id: 'black-box',
+    name: 'Black box',
+    description: 'Fully blacked-out space for video, interviews and controlled lighting.',
+    capacity: 'up to 4 people',
+    image: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1200&q=80'
+  }
+];
+
+/* ---------- helpers ---------- */
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+/* if an Unsplash URL ever breaks, swap in a placeholder so the demo never looks empty */
+function guardImg(img){
+  img.addEventListener('error', () => {
+    if (!img.dataset.fb){ img.dataset.fb = '1'; img.src = `https://picsum.photos/seed/${Math.random().toString(36).slice(2,8)}/1200/900`; }
+  });
+}
+
+/* ---------- render everything from the array ---------- */
+window.studioSetups = studioSetups;
+const exploreGrid = $('#exploreGrid');
+
+function build(){
+  exploreGrid.innerHTML = studioSetups.map(s => `
+    <figure class="explore-card" tabindex="0" role="button" data-open="${s.id}" aria-label="View ${s.name} full screen">
+      <img src="${s.image}" alt="${s.name}" loading="lazy">
+      <figcaption class="ec-cap"><i class="fa-solid fa-expand"></i>${s.name}</figcaption>
+    </figure>`).join('');
+
+  $$('img', exploreGrid).forEach(guardImg);
+  if (studioSetups.length <= 3) $('#viewAllBtn').style.display = 'none';
+}
+build();
+guardImg($('.hero-media img'));
+
+function hideSB(){ const el = window.__sbEl; if (el) el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
+function showSB(){ const el = window.__sbEl; if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'auto'; } }
+
+/* ---------- fullscreen viewer ---------- */
+const lightbox = $('#lightbox'); let lastFocus = null; let currentLbSetup = null;
+function openLb(s){
+  currentLbSetup = s;
+  $('#lbImg').src = s.image; $('#lbImg').alt = s.name;
+  $('#lbName').textContent = s.name;
+  $('#lbDesc').textContent = `${s.description} — ${s.capacity}.`;
+  lastFocus = document.activeElement;
+  lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  hideSB();
+  $('#lbClose').focus();
+}
+function closeLb(){
+  if (!lightbox.classList.contains('open')) return;
+  lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  showSB();
+  if (lastFocus) lastFocus.focus();
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-open]');
+  if (t){ const s = studioSetups.find(x => x.id === t.dataset.open); if (s) openLb(s); }
+});
+document.addEventListener('click', e => {
+  const panel = e.target.closest('#accordionGallery .ag-panel');
+  if (panel){
+    const idx = Array.from(panel.parentElement.children).indexOf(panel);
+    const s = studioSetups[idx];
+    if (s) openLb(s);
+  }
+});
+$('#lbClose').addEventListener('click', closeLb);
+$('#lbBook').addEventListener('click', () => {
+  if (currentLbSetup && setupSel) {
+    const opt = [...setupSel.options].find(o => o.value === currentLbSetup.id);
+    if (opt) { setupSel.value = currentLbSetup.id; setupSel.dispatchEvent(new Event('change')); }
+  }
+  closeLb();
+  const b = document.getElementById('book'); if (b) b.scrollIntoView({ behavior: 'smooth' });
+});
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ closeLb(); closeSuccess(); }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList?.contains('explore-card')){
+    e.preventDefault(); e.target.click();
+  }
+});
+
+/* ---------- explore: View All toggle ---------- */
+ $('#viewAllBtn').addEventListener('click', () => {
+  const collapsed = exploreGrid.classList.toggle('collapsed');
+  $('#viewAllBtn').textContent = collapsed ? 'View All' : 'Show less';
+});
+
+/* ---------- booking form ---------- */
+const form = $('#bookingForm');
+const setupSel = $('#setupSelect');
+studioSetups.forEach(s => {
+  const o = document.createElement('option');
+  o.value = s.id; o.textContent = s.name;
+  setupSel.appendChild(o);
+});
+setupSel.addEventListener('change', () => {
+  const s = studioSetups.find(x => x.id === setupSel.value);
+  if (s) window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+const fld = { name: $('#fullName'), email: $('#email'), date: $('#date'), time: $('#time'), duration: $('#duration') };
+const t = new Date();
+fld.date.min = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+
+function setInvalid(input, bad){
+  input.closest('.field').classList.toggle('invalid', bad);
+  input.setAttribute('aria-invalid', bad);
+}
+['fullName','email','date','time'].forEach(k =>
+  fld[k].addEventListener('input', () => setInvalid(fld[k], false)));
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const checks = [
+    [fld.name,  v => v.trim().length >= 2],
+    [fld.email, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())],
+    [fld.date,  v => !!v && v >= fld.date.min],
+    [fld.time,  v => !!v]
+  ];
+  let firstBad = null;
+  checks.forEach(([input, ok]) => {
+    const bad = !ok(input.value);
+    setInvalid(input, bad);
+    if (bad && !firstBad) firstBad = input;
+  });
+  if (firstBad){ firstBad.focus(); return; }
+
+  /* fill confirmation summary */
+  const setup = studioSetups.find(s => s.id === setupSelect.value);
+  $('#sumName').textContent  = fld.name.value.trim();
+  $('#sumEmail').textContent = fld.email.value.trim();
+  $('#sumSetup').textContent = setup.name;
+  $('#sumDate').textContent  = new Date(fld.date.value + 'T00:00')
+                                 .toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  const [h, m] = fld.time.value.split(':').map(Number);
+  $('#sumTime').textContent  = `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'}`;
+  $('#sumDuration').textContent = fld.duration.value;
+
+  openSuccess();
+  form.reset();
+  fld.duration.value = '2 hours';
+});
+
+/* ---------- success modal ---------- */
+const successModal = $('#successModal');
+function openSuccess(){
+  successModal.classList.add('open'); successModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  hideSB();
+  $('#closeSuccess').focus();
+}
+function closeSuccess(){
+  if (!successModal.classList.contains('open')) return;
+  successModal.classList.remove('open'); successModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  showSB();
+}
+ $('#closeSuccess').addEventListener('click', closeSuccess);
+successModal.addEventListener('click', e => { if (e.target === successModal) closeSuccess(); });
+
+/* ---------- misc ---------- */
+addEventListener('scroll', () => $('.site-header').classList.toggle('scrolled', scrollY > 10), { passive: true });
+$('#year').textContent = new Date().getFullYear();
+</script>
+
+<!-- SplitText integration -->
+<script type="module">
+  import { gsap } from 'https://esm.sh/gsap@3.12.5';
+  import { ScrollTrigger } from 'https://esm.sh/gsap@3.12.5/ScrollTrigger';
+  import { SplitText as GSAPSplitText } from 'https://esm.sh/gsap@3.12.5/SplitText';
+
+  gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+
+  const animateSplit = (selector, opts = {}) => {
+    const el = document.querySelector(selector);
+    if (!el) return;
+
+    const delay = opts.delay ?? 60;
+    const duration = opts.duration ?? 0.8;
+    const from = opts.from || { opacity: 0, y: 50 };
+    const to = opts.to || { opacity: 1, y: 0 };
+
+    const split = new GSAPSplitText(el, {
+      type: 'chars',
+      smartWrap: true,
+      charsClass: 'split-char',
+      reduceWhiteSpace: false
+    });
+
+    gsap.fromTo(
+      split.chars,
+      { ...from },
+      {
+        ...to,
+        duration,
+        ease: 'power3.out',
+        stagger: delay / 1000,
+        willChange: 'transform, opacity',
+        force3D: true
+      }
+    );
+  };
+
+  const run = () => {
+    animateSplit('#heroTitle');
+    animateSplit('#studioSetupsTitle');
+    animateSplit('#exploreTitle');
+  };
+
+  if (document.readyState === 'complete') {
+    run();
+  } else {
+window.addEventListener('load', run);
+  }
+</script>
+</body>
+</html>
