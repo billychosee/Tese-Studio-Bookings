@@ -190,11 +190,11 @@ a.f-item:hover{color:var(--teal-text)}
 .summary .k{color:var(--muted)}
 .summary .v{font-weight:600;text-align:right}
 
-/* Studio Setups: CircularGallery on mobile, Accordion on desktop */
-.studio-setups .circular-gallery-container { display: none; }
+/* Studio Setups: Stack on mobile, Accordion on desktop */
+.studio-setups .stack-gallery-container { display: none; }
 @media (max-width: 767px) {
   .studio-setups .accordion-gallery { display: none; }
-  .studio-setups .circular-gallery-container { display: block; height: 500px; }
+  .studio-setups .stack-gallery-container { display: block; height: 500px; }
 }
 @media (max-width:1024px){
   .two-col{grid-template-columns:1fr;gap:56px}
@@ -488,7 +488,7 @@ a.f-item:hover{color:var(--teal-text)}
         </div>
 
         <div id="accordionGallery"></div>
-        <div id="circularGallery" class="circular-gallery-container"></div>
+        <div id="stackGallery" class="stack-gallery-container"></div>
       </div>
 
       <!-- RIGHT — sticky booking panel -->
@@ -980,42 +980,65 @@ a.f-item:hover{color:var(--teal-text)}
   }
 </script>
 
-<!-- CircularGallery integration (mobile only) -->
+<!-- Stack integration (mobile only) -->
 <script type="module">
   import React from 'https://esm.sh/react@18.3.1';
   import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
 
   const h = React.createElement;
-  const galleryEl = document.getElementById('circularGallery');
+  const galleryEl = document.getElementById('stackGallery');
   let root = null;
   let mounted = false;
 
   function isContainerVisible(el) {
     if (!el) return false;
     const style = window.getComputedStyle(el);
-    return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetWidth > 0;
+    return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetWidth > 0 && el.offsetHeight > 0;
   }
 
   async function mount() {
-    if (mounted || !galleryEl || !window.studioSetups) return;
-    if (!isContainerVisible(galleryEl)) return;
+    if (mounted || !galleryEl || !window.studioSetups) {
+      console.log('[Stack] mount skipped:', { mounted, hasEl: !!galleryEl, hasData: !!window.studioSetups });
+      return;
+    }
+    if (!isContainerVisible(galleryEl)) {
+      console.log('[Stack] container not visible yet', { display: window.getComputedStyle(galleryEl).display, height: galleryEl.offsetHeight });
+      return;
+    }
     try {
-      console.log('[CircularGallery] mounting...');
-      const CircularGallery = (await import('./public/components/CircularGallery.js')).default;
-      const items = window.studioSetups.map(s => ({ image: s.image, text: s.name }));
+      console.log('[Stack] mounting...');
+      const StackModule = await import('./public/components/Stack.js');
+      console.log('[Stack] module loaded:', StackModule);
+      const Stack = StackModule.default;
+      console.log('[Stack] component:', Stack);
+      const cards = window.studioSetups.map(s =>
+        h('img', {
+          src: s.image,
+          alt: s.name,
+          style: { width: '100%', height: '100%', objectFit: 'cover' },
+          loading: 'lazy'
+        })
+      );
+      console.log('[Stack] cards created:', cards.length);
       root = createRoot(galleryEl);
-      root.render(h(CircularGallery, {
-        items,
-        bend: 3,
-        textColor: '#ffffff',
-        borderRadius: 0.05,
-        scrollSpeed: 2,
-        scrollEase: 0.05
+      console.log('[Stack] root created');
+      root.render(h(Stack, {
+        cards,
+        randomRotation: true,
+        sensitivity: 180,
+        sendToBackOnClick: true,
+        mobileClickOnly: true,
+        mobileBreakpoint: 768,
+        animationConfig: { stiffness: 260, damping: 20 },
+        onCardClick: (content, index) => {
+          const setup = window.studioSetups[index];
+          if (setup && window.openLb) window.openLb(setup);
+        }
       }));
       mounted = true;
-      console.log('[CircularGallery] mounted');
+      console.log('[Stack] mounted successfully');
     } catch (err) {
-      console.error('[CircularGallery] mount failed:', err);
+      console.error('[Stack] mount failed:', err);
     }
   }
 
@@ -1024,12 +1047,12 @@ a.f-item:hover{color:var(--teal-text)}
     root.unmount();
     root = null;
     mounted = false;
-    console.log('[CircularGallery] unmounted');
+    console.log('[Stack] unmounted');
   }
 
   // Initial check after a short delay to ensure CSS is applied
   setTimeout(() => {
-    console.log('[CircularGallery] initial check, container visible:', isContainerVisible(galleryEl));
+    console.log('[Stack] initial check, container visible:', isContainerVisible(galleryEl), 'display:', window.getComputedStyle(galleryEl).display, 'height:', galleryEl.offsetHeight);
     if (isContainerVisible(galleryEl)) { mount(); }
   }, 100);
 
@@ -1038,7 +1061,7 @@ a.f-item:hover{color:var(--teal-text)}
     const ro = new ResizeObserver(entries => {
       for (const entry of entries) {
         const visible = entry.contentRect.width > 0 && entry.contentRect.height > 0;
-        console.log('[CircularGallery] size change:', entry.contentRect.width + 'x' + entry.contentRect.height, 'visible:', visible);
+        console.log('[Stack] size change:', entry.contentRect.width + 'x' + entry.contentRect.height, 'visible:', visible);
         if (visible && !mounted) { mount(); }
         if (!visible && mounted) { unmount(); }
       }
@@ -1139,6 +1162,7 @@ function openLb(s){
   hideSB();
   $('#lbClose').focus();
 }
+window.openLb = openLb;
 function closeLb(){
   if (!lightbox.classList.contains('open')) return;
   lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden', 'true');

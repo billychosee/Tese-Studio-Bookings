@@ -47,6 +47,7 @@ export default function GlideSelect({
   rememberPosition = true,
   disabled = false,
   ariaLabel = 'Select',
+  labelId,
   className = ''
 }) {
   const items = options.map(norm);
@@ -257,8 +258,9 @@ export default function GlideSelect({
         'aria-haspopup': 'listbox',
         'aria-expanded': phase === 'open',
         'aria-controls': `${id}-list`,
-        'aria-activedescendant': active !== null ? `${id}-${active}` : undefined,
-        'aria-label': ariaLabel,
+        'aria-activedescendant': phase === 'open' && active !== null ? `${id}-${active}` : undefined,
+        'aria-labelledby': labelId,
+        'aria-label': labelId ? undefined : ariaLabel,
         disabled,
         className: 'glide-select__trigger',
         onPointerDown: e => {

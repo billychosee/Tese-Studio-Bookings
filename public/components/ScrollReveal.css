@@ -1,0 +1,30 @@
+.scroll-reveal {
+  margin: 20px 0;
+}
+
+.scroll-reveal-text {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.word {
+  display: inline-block;
+}
+
+/* Custom styles for Tese Studio */
+.scroll-reveal-hero {
+  text-align: center;
+  margin: 40px 0 60px;
+}
+
+.scroll-reveal-text-hero {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .scroll-reveal-text-hero {
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+  }
+}
