@@ -9,8 +9,42 @@ const containerStyle = {
   position: 'relative',
   width: '100%',
   height: '100%',
-  perspective: '600px',
-  outline: '2px solid red'
+  perspective: '600px'
+};
+
+const navButtonStyle = {
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  width: '48px',
+  height: '48px',
+  borderRadius: '50%',
+  background: 'rgba(255, 255, 255, 0.9)',
+  border: 'none',
+  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 10,
+  transition: 'all 0.2s ease',
+  backdropFilter: 'blur(8px)'
+};
+
+const prevButtonStyle = {
+  ...navButtonStyle,
+  left: '8px'
+};
+
+const nextButtonStyle = {
+  ...navButtonStyle,
+  right: '8px'
+};
+
+const navIconStyle = {
+  fontSize: '18px',
+  color: '#1F2927',
+  pointerEvents: 'none'
 };
 
 const cardRotateStyle = {
@@ -79,7 +113,6 @@ export default function Stack({
   mobileBreakpoint = 768,
   onCardClick
 }) {
-  console.log('[Stack] render, cards:', cards.length);
   const [isMobile, setIsMobile] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -153,6 +186,21 @@ export default function Stack({
     });
   };
 
+  const goNext = () => {
+    const topCardId = stack[stack.length - 1].id;
+    sendToBack(topCardId);
+  };
+
+  const goPrev = () => {
+    const bottomCardId = stack[0].id;
+    setStack((prev) => {
+      const newStack = [...prev];
+      const [card] = newStack.splice(newStack.length - 1, 1);
+      newStack.push(card);
+      return newStack;
+    });
+  };
+
   useEffect(() => {
     if (autoplay && stack.length > 1 && !isPaused) {
       const interval = setInterval(() => {
@@ -168,30 +216,42 @@ export default function Stack({
     style: containerStyle,
     onMouseEnter: () => pauseOnHover && setIsPaused(true),
     onMouseLeave: () => pauseOnHover && setIsPaused(false)
-  }, stack.map((card, index) => {
-    const randomRotate = randomRotation ? Math.random() * 10 - 5 : 0;
-    return h(CardRotate, {
-      key: card.id,
-      onSendToBack: () => sendToBack(card.id),
-      sensitivity: sensitivity,
-      disableDrag: shouldDisableDrag
-    }, h('motion.div', {
-      style: cardStyle,
-      onClick: () => {
-        if (shouldEnableClick) sendToBack(card.id);
-        if (onCardClick) onCardClick(card.content, card.id);
-      },
-      animate: {
-        rotateZ: (stack.length - index - 1) * 4 + randomRotate,
-        scale: 1 + index * 0.06 - stack.length * 0.06,
-        transformOrigin: '90% 90%'
-      },
-      initial: false,
-      transition: {
-        type: 'spring',
-        stiffness: animationConfig.stiffness,
-        damping: animationConfig.damping
-      }
-    }, card.content));
-  }));
+  }, [
+    stack.map((card, index) => {
+      const randomRotate = randomRotation ? Math.random() * 10 - 5 : 0;
+      return h(CardRotate, {
+        key: card.id,
+        onSendToBack: () => sendToBack(card.id),
+        sensitivity: sensitivity,
+        disableDrag: shouldDisableDrag
+      }, h('motion.div', {
+        style: cardStyle,
+        onClick: () => {
+          if (shouldEnableClick) sendToBack(card.id);
+          if (onCardClick) onCardClick(card.content, card.id);
+        },
+        animate: {
+          rotateZ: (stack.length - index - 1) * 4 + randomRotate,
+          scale: 1 + index * 0.06 - stack.length * 0.06,
+          transformOrigin: '90% 90%'
+        },
+        initial: false,
+        transition: {
+          type: 'spring',
+          stiffness: animationConfig.stiffness,
+          damping: animationConfig.damping
+        }
+      }, card.content));
+    }),
+    isMobile && stack.length > 1 && h('button', {
+      style: prevButtonStyle,
+      onClick: goPrev,
+      'aria-label': 'Previous setup'
+    }, h('i', { className: 'fa-solid fa-chevron-left', style: navIconStyle })),
+    isMobile && stack.length > 1 && h('button', {
+      style: nextButtonStyle,
+      onClick: goNext,
+      'aria-label': 'Next setup'
+    }, h('i', { className: 'fa-solid fa-chevron-right', style: navIconStyle }))
+  ]);
 }
