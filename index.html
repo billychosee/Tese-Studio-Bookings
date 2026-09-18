@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="public/components/CursorGrid.css">
 <link rel="stylesheet" href="public/components/GlideSelect.css">
+<link rel="stylesheet" href="public/components/CircularGallery.css">
 <link rel="icon" type="image/x-icon" href="public/icons/_favicon.ico">
 <link rel="icon" type="image/png" href="public/images/Tese-Icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="public/icons/_icon1.png">
@@ -189,7 +190,12 @@ a.f-item:hover{color:var(--teal-text)}
 .summary .k{color:var(--muted)}
 .summary .v{font-weight:600;text-align:right}
 
-/* ============ Responsive ============ */
+/* Studio Setups: CircularGallery on mobile, Accordion on desktop */
+.studio-setups .circular-gallery-container { display: none; }
+@media (max-width: 767px) {
+  .studio-setups .accordion-gallery { display: none; }
+  .studio-setups .circular-gallery-container { display: block; height: 500px; }
+}
 @media (max-width:1024px){
   .two-col{grid-template-columns:1fr;gap:56px}
   .booking-aside{position:static}
@@ -475,13 +481,14 @@ a.f-item:hover{color:var(--teal-text)}
     <div class="two-col">
 
       <!-- LEFT — setups gallery -->
-      <div>
+      <div class="studio-setups">
         <div class="section-head">
           <h2 id="studioSetupsTitle" class="split-parent">Studio setups</h2>
           <p>Curated spaces for every kind of recording — each one comes with mics, cameras, lighting and on-site support.</p>
         </div>
 
         <div id="accordionGallery"></div>
+        <div id="circularGallery" class="circular-gallery-container"></div>
       </div>
 
       <!-- RIGHT — sticky booking panel -->
@@ -492,7 +499,7 @@ a.f-item:hover{color:var(--teal-text)}
 
           <form id="bookingForm" class="form-grid" novalidate>
             <div class="field">
-              <label for="setupSelect"><i class="fa-solid fa-microphone"></i>Selected setup</label>
+              <label id="setupSelectLabel" for="setupSelect"><i class="fa-solid fa-microphone"></i>Selected setup</label>
               <select id="setupSelect" class="setup-select-native" aria-hidden="true" tabindex="-1"><!-- options injected --></select>
               <div id="setupGlideSelect" class="setup-glide-select"></div>
             </div>
@@ -973,6 +980,83 @@ a.f-item:hover{color:var(--teal-text)}
   }
 </script>
 
+<!-- CircularGallery integration (mobile only) -->
+<script type="module">
+  import React from 'https://esm.sh/react@18.3.1';
+  import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
+
+  const h = React.createElement;
+  const galleryEl = document.getElementById('circularGallery');
+  let root = null;
+  let mounted = false;
+
+  function isContainerVisible(el) {
+    if (!el) return false;
+    const style = window.getComputedStyle(el);
+    return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetWidth > 0;
+  }
+
+  async function mount() {
+    if (mounted || !galleryEl || !window.studioSetups) return;
+    if (!isContainerVisible(galleryEl)) return;
+    try {
+      console.log('[CircularGallery] mounting...');
+      const CircularGallery = (await import('./public/components/CircularGallery.js')).default;
+      const items = window.studioSetups.map(s => ({ image: s.image, text: s.name }));
+      root = createRoot(galleryEl);
+      root.render(h(CircularGallery, {
+        items,
+        bend: 3,
+        textColor: '#ffffff',
+        borderRadius: 0.05,
+        scrollSpeed: 2,
+        scrollEase: 0.05
+      }));
+      mounted = true;
+      console.log('[CircularGallery] mounted');
+    } catch (err) {
+      console.error('[CircularGallery] mount failed:', err);
+    }
+  }
+
+  function unmount() {
+    if (!mounted || !root) return;
+    root.unmount();
+    root = null;
+    mounted = false;
+    console.log('[CircularGallery] unmounted');
+  }
+
+  // Initial check after a short delay to ensure CSS is applied
+  setTimeout(() => {
+    console.log('[CircularGallery] initial check, container visible:', isContainerVisible(galleryEl));
+    if (isContainerVisible(galleryEl)) { mount(); }
+  }, 100);
+
+  // Use ResizeObserver to detect when container becomes visible/hidden
+  if (galleryEl && 'ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const visible = entry.contentRect.width > 0 && entry.contentRect.height > 0;
+        console.log('[CircularGallery] size change:', entry.contentRect.width + 'x' + entry.contentRect.height, 'visible:', visible);
+        if (visible && !mounted) { mount(); }
+        if (!visible && mounted) { unmount(); }
+      }
+    });
+    ro.observe(galleryEl);
+  }
+
+  // Also check on resize for viewport changes
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (isContainerVisible(galleryEl) && !mounted) { mount(); }
+      else if (!isContainerVisible(galleryEl) && mounted) { unmount(); }
+    }, 200);
+  });
+</script>
+
 
 
 <script>
@@ -1102,7 +1186,7 @@ const form = $('#bookingForm');
 const setupSel = $('#setupSelect');
 studioSetups.forEach(s => {
   const o = document.createElement('option');
-  o.value = s.id; o.textContent = s.name;
+  o.value = s.id; o.textContent = s.name; o.dataset.capacity = s.capacity;
   setupSel.appendChild(o);
 });
 setupSel.addEventListener('change', () => {
@@ -1174,6 +1258,68 @@ addEventListener('scroll', () => $('.site-header').classList.toggle('scrolled', 
 $('#year').textContent = new Date().getFullYear();
 </script>
 
+<!-- GlideSelect integration -->
+<script type="module">
+  import React, { useEffect, useState } from 'https://esm.sh/react@18.3.1';
+  import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
+  import GlideSelect from './public/components/GlideSelect.js';
+
+  const setupSelect = document.getElementById('setupSelect');
+  const setupOptions = Array.from(setupSelect.options)
+    .filter(option => option.value)
+    .map(option => ({
+      value: option.value,
+      label: option.label,
+      tag: option.dataset.capacity
+    }));
+  const initialSetup = setupSelect.value || setupOptions[0]?.value || '';
+
+  const SetupPicker = () => {
+    const [value, setValue] = useState(initialSetup);
+
+    useEffect(() => {
+      const syncValue = () => setValue(setupSelect.value);
+      setupSelect.addEventListener('change', syncValue);
+      setupSelect.form?.addEventListener('reset', syncValue);
+      return () => {
+        setupSelect.removeEventListener('change', syncValue);
+        setupSelect.form?.removeEventListener('reset', syncValue);
+      };
+    }, []);
+
+    const handleChange = nextValue => {
+      if (setupSelect.value !== nextValue) {
+        setupSelect.value = nextValue;
+        setupSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      setValue(nextValue);
+    };
+
+    return React.createElement(GlideSelect, {
+      options: setupOptions,
+      value,
+      onChange: handleChange,
+      ariaLabel: 'Selected setup',
+      labelId: 'setupSelectLabel',
+      showTags: true,
+      accentColor: '#008F36',
+      surfaceColor: '#FFFFFF',
+      highlightColor: '#DFF2F1',
+      textColor: '#1F2927',
+      size: 'md',
+      radius: 12,
+      menuWidth: 260,
+      placement: 'bottom',
+      align: 'left',
+      popDuration: 180,
+      glideDuration: 220,
+      rememberPosition: true
+    });
+  };
+
+  createRoot(document.getElementById('setupGlideSelect')).render(React.createElement(SetupPicker));
+</script>
+
 <!-- SplitText integration -->
 <script type="module">
   import { gsap } from 'https://esm.sh/gsap@3.12.5';
@@ -1224,5 +1370,95 @@ $('#year').textContent = new Date().getFullYear();
 window.addEventListener('load', run);
   }
 </script>
+
+<!-- ScrollReveal integration -->
+<script type="module">
+  import { gsap } from 'https://esm.sh/gsap@3.12.5';
+  import { ScrollTrigger } from 'https://esm.sh/gsap@3.12.5/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initScrollReveal = (selector, options = {}) => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      if (el.dataset.srInit) return;
+      el.dataset.srInit = 'true';
+
+      const text = el.textContent.trim();
+      if (!text) return;
+
+      const words = text.split(/(\s+)/).map((word, i) => {
+        if (word.match(/^\s+$/)) return word;
+        return `<span class="sr-word" style="display:inline-block;opacity:0;filter:blur(${options.blurStrength || 10}px)">${word}</span>`;
+      }).join('');
+
+      el.innerHTML = words;
+
+      const wordElements = el.querySelectorAll('.sr-word');
+
+      gsap.fromTo(
+        el,
+        { transformOrigin: '0% 50%', rotate: options.baseRotation || 5 },
+        {
+          ease: 'none',
+          rotate: 0,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            end: options.rotationEnd || 'bottom bottom',
+            scrub: true
+          }
+        }
+      );
+
+      gsap.fromTo(
+        wordElements,
+        { opacity: options.baseOpacity || 0, willChange: 'opacity, filter' },
+        {
+          ease: 'none',
+          opacity: 1,
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom-=20%',
+            end: options.wordAnimationEnd || 'bottom bottom',
+            scrub: true
+          }
+        }
+      );
+
+      if (options.enableBlur !== false) {
+        gsap.fromTo(
+          wordElements,
+          { filter: `blur(${options.blurStrength || 10}px)` },
+          {
+            ease: 'none',
+            filter: 'blur(0px)',
+            stagger: 0.05,
+            scrollTrigger: {
+              trigger: el,
+              start: 'top bottom-=20%',
+              end: options.wordAnimationEnd || 'bottom bottom',
+              scrub: true
+            }
+          }
+        );
+      }
+    });
+  };
+
+  // Apply to multiple text elements
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollReveal('#heroTitle', { baseRotation: 3, blurStrength: 8 });
+    initScrollReveal('.hero-copy p', { baseRotation: 2, blurStrength: 6, baseOpacity: 0.1 });
+    initScrollReveal('#studioSetupsTitle', { baseRotation: 3, blurStrength: 8 });
+    initScrollReveal('#exploreTitle', { baseRotation: 3, blurStrength: 8 });
+    initScrollReveal('.section-head p', { baseRotation: 1, blurStrength: 4, baseOpacity: 0.15 });
+    initScrollReveal('.booking-card h2', { baseRotation: 2, blurStrength: 6 });
+    initScrollReveal('.booking-card .sub', { baseRotation: 1, blurStrength: 4, baseOpacity: 0.15 });
+    initScrollReveal('.explore .section-head p', { baseRotation: 1, blurStrength: 4, baseOpacity: 0.15 });
+  });
+</script>
+
 </body>
 </html>
